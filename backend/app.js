@@ -6,6 +6,7 @@ const { celebrate, Joi } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-err');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
@@ -20,6 +21,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 }, (err) => {
   if (err) throw err;
 });
+
+app.use(requestLogger); // подключаем логгер запросов
 
 // роуты, не требующие авторизации,
 // например, регистрация и логин
@@ -50,6 +53,8 @@ app.use('/cards', require('./routes/cards'));
 app.use('/*', (req, res, next) => {
   next(new NotFoundError('Запрос сделан к несуществующей странице'));
 });
+
+app.use(errorLogger); // подключаем логгер ошибок
 
 app.use(errors());
 

@@ -1,0 +1,25 @@
+.popup__field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.popup__field:first-of-type {
+  margin: 38px 36px 0 36px;
+  height: 35px;
+}
+
+.popup__field:last-of-type {
+  margin: 37px 36px 0 36px;
+  height: 35px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__field:first-of-type {
+    margin: 65px calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320))) 0 calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320)));
+  }
+
+  .popup__field:last-of-type {
+    margin: 22px calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320))) 0 calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320)));
+  }
+}

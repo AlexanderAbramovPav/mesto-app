@@ -1,0 +1,21 @@
+.popup__input {
+  padding: 0;
+  width: auto;
+  min-height: 37px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: Inter, Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  z-index: 2;
+}
+
+.popup__input:focus {
+  background-color: yellow;
+}
+

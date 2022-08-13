@@ -1,0 +1,14 @@
+.header__email-info {
+    height: fit-content;
+    justify-self: start;
+    display: flex;
+    padding: 0;
+    margin: 7px 24px 0 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    color: #FFFFFF;
+}

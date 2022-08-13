@@ -1,0 +1,23 @@
+.sign-form__submit-btn {
+    width: 358px;
+    height: 50px;
+    background: #FFFFFF;
+    padding: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    margin: 218px auto 0 auto;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+
+    transition: opacity 0.5s ease-in-out;
+}
+
+.sign-form__submit-btn:hover {
+    opacity: 0.85;
+}

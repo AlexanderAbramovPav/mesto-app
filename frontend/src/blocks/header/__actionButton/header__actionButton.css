@@ -1,0 +1,23 @@
+.header__actionButton {
+    display: flex;
+    padding: 0;
+    margin-top: 7px;
+    height: fit-content;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    justify-self: start;
+    color: #FFFFFF;
+    background-color: transparent;
+    border: none;
+    transition: 0.3s ease-in-out opacity;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header__actionButton:hover {
+    opacity: 0.6;
+}
