@@ -12,6 +12,21 @@ const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b(
 
 const app = express();
 
+const allowedCors = [
+  'https://alexander.abramov.nomoredomains.sbs',
+  'http://alexander.abramov.nomoredomains.sbs',
+  'localhost:3000',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  // проверяем, что источник запроса есть среди разрешённых
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
