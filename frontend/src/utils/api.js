@@ -96,6 +96,7 @@ export default class Api {
 export const apiSettings = new Api({
   baseUrl: "https://api.alexander.abramov.nomoredomains.sbs",
   headers: {
+    authorization: localStorage.getItem('jwt'),
     "Content-Type": "application/json",
   },
 });
