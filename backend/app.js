@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi } = require('celebrate');
+const cors = require('cors');
 const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-err');
@@ -12,20 +13,13 @@ const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b(
 
 const app = express();
 
-const allowedCors = [
-  'https://alexander.abramov.nomoredomains.sbs',
-  'http://alexander.abramov.nomoredomains.sbs',
-  'localhost:3000',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
-  // проверяем, что источник запроса есть среди разрешённых
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  next();
-});
+app.use(cors({
+  origin: [
+    'https://alexander.abramov.nomoredomains.sbs',
+    'http://alexander.abramov.nomoredomains.sbs',
+    'localhost:3000',
+  ],
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
