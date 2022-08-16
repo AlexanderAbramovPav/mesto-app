@@ -5,6 +5,7 @@ export default class Api {
 
   _getServerStatus(res) {
     if (res.ok) {
+      console.log(res);
       return res.json();
     } else {
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -96,7 +97,7 @@ export default class Api {
 export const apiSettings = new Api({
   baseUrl: "https://api.alexander.abramov.nomoredomains.sbs",
   headers: {
-    authorization: localStorage.getItem('jwt'),
+    "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",
   },
 });

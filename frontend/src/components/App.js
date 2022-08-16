@@ -37,12 +37,14 @@ function App(props) {
           apiSettings.getUserInfo()
           .then((user) => {
             setCurrentUser(user);
+            console.log(user);
+            console.log(currentUser);
           })
           .catch((err) => {
               console.log(err);
           });
       };    
-  },[])
+  }, [])
 
   // Обработка кликов на Аватар, Профайл
 
