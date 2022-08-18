@@ -257,6 +257,7 @@ function App(props) {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+      <script src="//console.re/connector.js" data-channel="AlexNoAlex" id="consolerescript"></script>
         <Switch>
           <ProtectedRoute
             exact path="/"
