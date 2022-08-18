@@ -34,21 +34,22 @@ export const authorize = (password, email) => {
     .then((response => {
         return getServerStatus(response)
       }))
-    .then((data) => {
-      if (data.token){
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-    })
+    // .then((data) => {
+    //   if (data.token){
+    //     localStorage.setItem('jwt', data.token);
+    //     return data;
+    //   }
+    // })
   }; 
 
 
-export const checkToken = (token) => {
+export const checkToken = () => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
         credentials: 'include',
+        // authorization: token,
         }
     })
     .then(response => {

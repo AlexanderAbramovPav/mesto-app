@@ -180,7 +180,7 @@ function App(props) {
   const history = useHistory();
 
   function signOut(){
-    localStorage.removeItem('jwt');
+    cookie.remove('jwt');
     setLoggedIn({
       loggedIn: false})
   }
@@ -209,11 +209,11 @@ function App(props) {
   }
 
   function handleGetContent(){
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      console.log(jwt)
+    // if (cookie.get('jwt')) {
+    //   const jwt = cookie.get('jwt');
+    //   console.log(jwt);
       // проверяем токен пользователя
-      auth.checkToken(jwt)
+      auth.checkToken()
       .then((res) => {
         if (res) {
           setLoggedIn({
@@ -225,8 +225,8 @@ function App(props) {
           props.history.push("/")
       })
       .catch((err) => console.log(err));
-    }
   }
+
 
   useEffect(() => {
     handleGetContent()
