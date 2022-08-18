@@ -209,6 +209,7 @@ function App(props) {
   function handleGetContent(){
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
+      console.log(jwt)
       // проверяем токен пользователя
       auth.checkToken(jwt)
       .then((res) => {
