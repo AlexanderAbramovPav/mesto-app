@@ -58,13 +58,13 @@ app.use(requestLogger); // подключаем логгер запросов
 
 // роуты, не требующие авторизации,
 // например, регистрация и логин
-app.post('/signin', celebrate({
+app.post('/app/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), login);
-app.post('/signup', celebrate({
+app.post('/app/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -78,11 +78,11 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 // роуты, которым авторизация нужна
-app.use('/users', require('./routes/users'));
-app.use('/cards', require('./routes/cards'));
+app.use('/app/users', require('./routes/users'));
+app.use('/app/cards', require('./routes/cards'));
 
 // роут 404
-app.use('/*', (req, res, next) => {
+app.use('/app/*', (req, res, next) => {
   next(new NotFoundError('Запрос сделан к несуществующей странице'));
 });
 
@@ -106,4 +106,4 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(5000);
+app.listen(3000);
