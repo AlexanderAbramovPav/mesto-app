@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://api.alexander.abramov.nomoredomains.sbs';
+export const BASE_URL = 'http://localhost:5000';
+// export const BASE_URL = 'https://api.alexander.abramov.nomoredomains.sbs';
 
 export const getServerStatus = (res) => {
     if (res.ok) {
@@ -48,9 +49,9 @@ export const checkToken = () => {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
-        credentials: 'include',
         // authorization: token,
-        }
+        },
+        credentials: 'include',
     })
     .then(response => {
       return getServerStatus(response)

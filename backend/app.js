@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi } = require('celebrate');
+const cors = require('cors');
 const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-err');
@@ -12,6 +13,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
 const app = express();
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -26,32 +28,33 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger); // подключаем логгер запросов
 
-// Массив доменов, с которых разрешены кросс-доменные запросы
-const allowedCors = [
-  'https://alexander.abramov.nomoredomains.sbs',
-  'http://alexander.abramov.nomoredomains.sbs',
-];
+// const allowedCors = [
+//   // 'https://alexander.abramov.nomoredomains.sbs',
+//   // 'http://alexander.abramov.nomoredomains.sbs',
+//   'http://localhost:3000',
+//   'https://localhost:3000',
+// ];
 
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
+// app.use((req, res, next) => {
+//   const { origin } = req.headers;
+//   const { method } = req.method;
+//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+//   const requestHeaders = req.headers['access-control-request-headers'];
 
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
-  }
+//   if (allowedCors.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//     // res.header('Access-Control-Allow-Credentials', true);
+//   }
 
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    res.end();
-    return;
-  }
+//   if (method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+//     res.header('Access-Control-Allow-Headers', requestHeaders);
+//     res.end();
+//     return;
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // роуты, не требующие авторизации,
 // например, регистрация и логин
@@ -103,4 +106,4 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(3000);
+app.listen(5000);

@@ -31,7 +31,6 @@ function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userCards, setUserCards] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [cookies, setCookie] = useCookies(['jwt'])
 
 
 
@@ -40,14 +39,12 @@ function App(props) {
           apiSettings.getUserInfo()
           .then((user) => {
             setCurrentUser(user);
-            console.log(user);
-            console.log(currentUser);
           })
           .catch((err) => {
               console.log(err);
           });
       };    
-  }, [])
+  }, [currentUser])
 
   // Обработка кликов на Аватар, Профайл
 
@@ -231,7 +228,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, []);
+  }, [currentUser]);
 
 
     // Register api
