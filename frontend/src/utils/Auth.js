@@ -48,7 +48,7 @@ export const checkToken = (token) => {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
-        authorization: `${token}`,
+        credentials: 'include',
         }
     })
     .then(response => {

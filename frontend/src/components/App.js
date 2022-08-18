@@ -16,6 +16,7 @@ import ProtectedRoute from './ProtectedRoute.js';
 import InfoTooltip from './InfoTooltip.js';
 import errorIcon from '../images/icon-error.svg';
 import okIcon from '../images/icon-ok.svg';
+import cookie from 'react-cookie'
 
 
 
@@ -30,6 +31,7 @@ function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userCards, setUserCards] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+
 
 
   useEffect(() => {
@@ -257,7 +259,6 @@ function App(props) {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <script src="//console.re/connector.js" data-channel="AlexNoAlex" id="consolerescript"></script>
         <Switch>
           <ProtectedRoute
             exact path="/"

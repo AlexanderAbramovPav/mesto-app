@@ -1,6 +1,5 @@
-import consolere from 'console-remote-client';
-
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
@@ -14,15 +13,9 @@ const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b(
 
 const app = express();
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-consolere.connect({
-  server: 'https://console.re', // optional, default: https://console.re
-  channel: 'AlexNoAlex', // required
-  redirectDefaultConsoleToRemote: true, // optional, default: false
-  disableDefaultConsoleOutput: true, // optional, default: false
-});
 
 // подключаемся к серверу mongo
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -40,7 +33,6 @@ const allowedCors = [
 ];
 
 app.use((req, res, next) => {
-  console.re.log('test');
   const { origin } = req.headers;
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
