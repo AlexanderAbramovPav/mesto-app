@@ -15,10 +15,7 @@ const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b(
 const app = express();
 app.use(cors({
   credentials: true,
-  origin: [
-    'https://alexander.abramov.nomoredomains.sbs',
-    'http://alexander.abramov.nomoredomains.sbs',
-  ],
+  origin: 'https://alexander.abramov.nomoredomains.sbs',
 }));
 
 app.use(cookieParser());
