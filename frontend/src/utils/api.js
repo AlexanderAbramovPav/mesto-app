@@ -95,8 +95,8 @@ export default class Api {
 }
 
 export const apiSettings = new Api({
-  // baseUrl: "https://api.alexander.abramov.nomoredomains.sbs",
-  baseUrl: "http://localhost:3000/api",
+  baseUrl: "https://api.alexander.abramov.nomoredomains.sbs",
+  // baseUrl: "http://localhost:3000/api",
   headers: {
     // authorization: localStorage.getItem('jwt'),
     // authorization: cookie.get('jwt'),

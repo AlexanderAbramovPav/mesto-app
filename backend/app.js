@@ -13,7 +13,13 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
 const app = express();
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({
+  credentials: true,
+  origin: [
+    'https://alexander.abramov.nomoredomains.sbs',
+    'http://alexander.abramov.nomoredomains.sbs',
+  ],
+}));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -58,13 +64,13 @@ app.use(requestLogger); // подключаем логгер запросов
 
 // роуты, не требующие авторизации,
 // например, регистрация и логин
-app.post('/app/signin', celebrate({
+app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), login);
-app.post('/app/signup', celebrate({
+app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -78,11 +84,11 @@ app.post('/app/signup', celebrate({
 app.use(auth);
 
 // роуты, которым авторизация нужна
-app.use('/app/users', require('./routes/users'));
-app.use('/app/cards', require('./routes/cards'));
+app.use('/users', require('./routes/users'));
+app.use('/cards', require('./routes/cards'));
 
 // роут 404
-app.use('/app/*', (req, res, next) => {
+app.use('/*', (req, res, next) => {
   next(new NotFoundError('Запрос сделан к несуществующей странице'));
 });
 
