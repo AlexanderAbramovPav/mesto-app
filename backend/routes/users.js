@@ -7,7 +7,7 @@ const {
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
-router.post('/', celebrate({
+router.post('/api/', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -17,24 +17,24 @@ router.post('/', celebrate({
   }),
 }), createUser);
 
-router.get('/', getUsers);
+router.get('/api/', getUsers);
 
-router.get('/me', getUser);
+router.get('/api/me', getUser);
 
-router.get('/:id', celebrate({
+router.get('/api/:id', celebrate({
   params: Joi.object().keys({
     id: Joi.string().alphanum().length(24).hex(),
   }),
 }), getUserById);
 
-router.patch('/me', celebrate({
+router.patch('/api/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     about: Joi.string().required().min(2).max(30),
   }),
 }), updateUser);
 
-router.patch('/me/avatar', celebrate({
+router.patch('/api/me/avatar', celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().required().regex(regWebUrl),
   }),
