@@ -1,3 +1,5 @@
+import consolere from 'console-remote-client';
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -14,6 +16,13 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+consolere.connect({
+  server: 'https://console.re', // optional, default: https://console.re
+  channel: 'AlexNoAlex', // required
+  redirectDefaultConsoleToRemote: true, // optional, default: false
+  disableDefaultConsoleOutput: true, // optional, default: false
+});
 
 // подключаемся к серверу mongo
 mongoose.connect('mongodb://localhost:27017/mestodb', {
