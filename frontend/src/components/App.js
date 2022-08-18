@@ -16,7 +16,7 @@ import ProtectedRoute from './ProtectedRoute.js';
 import InfoTooltip from './InfoTooltip.js';
 import errorIcon from '../images/icon-error.svg';
 import okIcon from '../images/icon-ok.svg';
-import cookie from 'react-cookie'
+// import { useCookies } from 'react-cookie'
 
 
 
@@ -31,6 +31,7 @@ function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userCards, setUserCards] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  // const [cookies, setCookie] = useCookies(['jwt'])
 
 
 
@@ -180,7 +181,7 @@ function App(props) {
   const history = useHistory();
 
   function signOut(){
-    cookie.remove('jwt');
+    // Cookies.remove('jwt');
     setLoggedIn({
       loggedIn: false})
   }
