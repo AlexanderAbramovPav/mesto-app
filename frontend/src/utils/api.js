@@ -56,7 +56,6 @@ export default class Api {
         .then(res => {
           return this._getServerStatus(res)
         })
-        .then(data => data)
     else 
       return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
         method: 'PUT',
