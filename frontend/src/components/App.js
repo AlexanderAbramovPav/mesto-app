@@ -32,19 +32,18 @@ function App(props) {
   const [userCards, setUserCards] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
-
-
   useEffect(() => {
-      return () => {
-          apiSettings.getUserInfo()
-          .then((user) => {
-            setCurrentUser(user);
-          })
-          .catch((err) => {
-              console.log(err);
-          });
-      };    
-  }, [currentUser])
+    if (loggedIn) {
+      Promise.all([apiSettings.getUserInfo(), apiSettings.getInitialCards()])
+      .then(([currentUser, cards]) => {
+        setCurrentUser(currentUser);
+        setUserCards(cards);
+      })
+      .catch((err) =>
+        console.log(`${err}`))
+    }
+  }, [loggedIn]);
+
 
   // Обработка кликов на Аватар, Профайл
 
@@ -97,18 +96,6 @@ function App(props) {
 
 
   // Все по карточкам
-
-  useEffect(() => {
-    return () => {
-        apiSettings.getInitialCards()
-        .then((cards) => {
-            setUserCards(cards);
-        }) 
-        .catch((err) => {
-            console.log(err);
-        });
-    };    
-  },[])
 
 
   function handleCardLike(card) {

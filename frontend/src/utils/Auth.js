@@ -12,8 +12,10 @@ export const getServerStatus = (res) => {
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     body: JSON.stringify({password, email})
   })
@@ -27,8 +29,10 @@ export const register = (password, email) => {
 export const authorize = (password, email) => {
     return fetch(`${BASE_URL}/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({password, email})
     })
@@ -49,7 +53,7 @@ export const checkToken = () => {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
-        // authorization: token,
+        'Accept': 'application/json',
         },
         credentials: 'include',
     })
