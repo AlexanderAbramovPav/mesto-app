@@ -190,6 +190,7 @@ function App(props) {
     auth.authorize(useFormData.values.password, useFormData.values.email)
     .then((res) => {
       if (res) {
+          console.log('login api', res) //
           setLoggedIn({
             loggedIn: true,
             email: useFormData.values.email
@@ -207,12 +208,11 @@ function App(props) {
   }
 
   function handleGetContent(){
-    // if (cookie.get('jwt')) {
-    //   const jwt = cookie.get('jwt');
-    //   console.log(jwt);
-      // проверяем токен пользователя
+    console.log('login stat', loggedIn) //
+    if (!loggedIn) {
       auth.checkToken()
       .then((res) => {
+        console.log('token', res, loggedIn); //
         if (res) {
           setLoggedIn({
             loggedIn: true,
@@ -223,12 +223,13 @@ function App(props) {
           props.history.push("/")
       })
       .catch((err) => console.log(err));
+    }
   }
 
 
   useEffect(() => {
     handleGetContent()
-  }, [currentUser]);
+  }, [loggedIn]); //
 
 
     // Register api
