@@ -21,7 +21,6 @@ export default class Api {
       .then(res => {
         return this._getServerStatus(res)
       })
-      .then(data => data)
   }
 
   deleteCard(cardId) {
@@ -33,7 +32,6 @@ export default class Api {
       .then(res => {
         return this._getServerStatus(res)
       })
-      .then(data => data)
   }
 
   addNewCard(bodyOptions) {
@@ -46,7 +44,6 @@ export default class Api {
       .then(res => {
         return this._getServerStatus(res)
       })
-      .then(data => data)
   }
 
   changeLikeCardStatus(cardId, isLiked) {
@@ -69,7 +66,6 @@ export default class Api {
         .then(res => {
           return this._getServerStatus(res)
         })
-        .then(data => data)
   }
 
   getUserInfo() {
@@ -81,7 +77,6 @@ export default class Api {
       .then(res => {
         return this._getServerStatus(res)
       })
-      .then(data => data)
   }
 
   patchUserAvatar(bodyOptions) {
@@ -94,7 +89,6 @@ export default class Api {
       .then(res => {
         return this._getServerStatus(res)
       })
-      .then(data => data)
   }
 
   patchUserInfo(bodyOptions) {
@@ -107,7 +101,6 @@ export default class Api {
       .then(res => {
         return this._getServerStatus(res)
       })
-      .then(data => data)
   }
 
 }
@@ -119,6 +112,5 @@ export const apiSettings = new Api({
     // authorization: localStorage.getItem('jwt'),
     // authorization: cookie.get('jwt'),
     "Content-Type": "application/json",
-    'Accept': 'application/json'
   },
 });
