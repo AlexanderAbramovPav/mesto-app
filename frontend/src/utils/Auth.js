@@ -22,7 +22,6 @@ export const register = (password, email) => {
   .then((response) => {
     return getServerStatus(response)
   })
-  .then(data => data)
 };
 
 

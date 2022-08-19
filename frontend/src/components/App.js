@@ -36,8 +36,8 @@ function App(props) {
     if (loggedIn) {
       Promise.all([apiSettings.getUserInfo(), apiSettings.getInitialCards()])
       .then(([currentUser, cards]) => {
-        setCurrentUser(currentUser);
-        setUserCards(cards);
+        setCurrentUser(currentUser.data);
+        setUserCards(cards.data);
       })
       .catch((err) =>
         console.log(`${err}`))
@@ -62,7 +62,7 @@ function App(props) {
   function handleUpdateUser(data) {
     apiSettings.patchUserInfo(data)
     .then((updateInfo) => {
-      setCurrentUser(updateInfo);
+      setCurrentUser(updateInfo.data);
       closeAllPopups();
     })
     .catch((err) => {
@@ -73,7 +73,7 @@ function App(props) {
   function handleUpdateAvatar(data) {
     apiSettings.patchUserAvatar(data)
     .then((updateInfo) => {
-      setCurrentUser(updateInfo);
+      setCurrentUser(updateInfo.data);
       closeAllPopups();
     })
     .catch((err) => {
@@ -103,7 +103,7 @@ function App(props) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     apiSettings.changeLikeCardStatus(card._id, isLiked)
     .then((newCard) => {
-        setUserCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        setUserCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
     })
     .catch((err) => {
         console.log(err);
@@ -124,7 +124,7 @@ function App(props) {
   function handleAddPlaceSubmit(data) {
     apiSettings.addNewCard(data)
     .then((newCard) => {
-      setUserCards([newCard, ...userCards]);
+      setUserCards([newCard.data, ...userCards]);
       closeAllPopups();
     })
     .catch((err) => {
