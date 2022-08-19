@@ -203,7 +203,7 @@ function App(props) {
         if (res) {
           setLoggedIn({
             loggedIn: true,
-            email: res.data.email
+            email: res.email
           })
         }})
       .then(()=> {
