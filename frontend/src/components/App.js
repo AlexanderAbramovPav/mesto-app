@@ -168,6 +168,7 @@ function App(props) {
     auth.logout()
     setLoggedIn({
       loggedIn: false})
+    history.push('/sign-in');
   }
 
 
@@ -196,7 +197,7 @@ function App(props) {
 
   function handleGetContent(){
     console.log('login stat', loggedIn) //
-    if (!loggedIn) {
+    if (loggedIn) {
       auth.checkToken()
       .then((res) => {
         console.log('token', res, loggedIn); //
@@ -216,7 +217,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, [loggedIn]); //
+  }, []); //
 
 
     // Register api

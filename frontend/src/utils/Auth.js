@@ -70,5 +70,4 @@ export const logout = () => {
   .then(response => {
     return getServerStatus(response)
     })
-  .then(data => data)
 }

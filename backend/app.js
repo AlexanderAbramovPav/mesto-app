@@ -81,14 +81,12 @@ app.post('/signup', celebrate({
     avatar: Joi.string().regex(regWebUrl),
   }),
 }), createUser);
+app.get('/logout', (req, res) => {
+  res.status(200).clearCookie('jwt');
+});
 
 // авторизация
 app.use(auth);
-
-app.get('/logout', (req, res) => {
-  res.status(200).clearCookie('jwt');
-  res.redirect('/');
-});
 
 // роуты, которым авторизация нужна
 app.use('/users', require('./routes/users'));
