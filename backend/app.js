@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -12,6 +13,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
+console.log(process.env);
+
+const { PORT = 3000 } = process.env;
 const app = express();
 app.use(cors({
   origin: [
@@ -90,6 +94,7 @@ app.use(auth);
 
 // роуты, которым авторизация нужна
 app.use('/users', require('./routes/users'));
+
 app.use('/cards', require('./routes/cards'));
 
 // роут 404
@@ -117,4 +122,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(3000);
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
