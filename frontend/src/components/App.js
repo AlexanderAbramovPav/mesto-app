@@ -165,7 +165,7 @@ function App(props) {
   // const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
 
   function signOut(){
-    apiSettings.logout()
+    auth.logout()
     setLoggedIn({
       loggedIn: false})
   }
@@ -216,7 +216,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, []); //
+  }, [loggedIn]); //
 
 
     // Register api
