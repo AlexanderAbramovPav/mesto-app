@@ -162,7 +162,6 @@ function App(props) {
   // Выход
 
   const history = useHistory();
-  // const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
 
   function signOut(){
     auth.logout()
@@ -178,7 +177,6 @@ function App(props) {
     auth.authorize(useFormData.values.password, useFormData.values.email)
     .then((res) => {
       if (res) {
-          console.log('login api', res) //
           setLoggedIn({
             loggedIn: true,
             email: useFormData.values.email
@@ -196,11 +194,9 @@ function App(props) {
   }
 
   function handleGetContent(){
-    console.log('login stat', loggedIn) //
     if (loggedIn) {
       auth.checkToken()
       .then((res) => {
-        console.log('token', res, loggedIn); //
         if (res) {
           setLoggedIn({
             loggedIn: true,
@@ -217,7 +213,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, []); //
+  }, []);
 
 
     // Register api
