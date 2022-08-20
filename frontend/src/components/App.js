@@ -194,7 +194,7 @@ function App(props) {
   }
 
   function handleGetContent(){
-    if (loggedIn) {
+    if (!loggedIn) {
       auth.checkToken()
       .then((res) => {
         if (res) {
