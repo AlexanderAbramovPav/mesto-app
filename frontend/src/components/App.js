@@ -16,7 +16,6 @@ import ProtectedRoute from './ProtectedRoute.js';
 import InfoTooltip from './InfoTooltip.js';
 import errorIcon from '../images/icon-error.svg';
 import okIcon from '../images/icon-ok.svg';
-// import { useCookies } from 'react-cookie'
 
 
 
@@ -100,7 +99,7 @@ function App(props) {
 
   function handleCardLike(card) {
 
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     apiSettings.changeLikeCardStatus(card._id, isLiked)
     .then((newCard) => {
         setUserCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -145,7 +144,7 @@ function App(props) {
         }
         document.addEventListener('keydown', closeByEscape)
         return () => document.removeEventListener('keydown', closeByEscape)
-    }, [isOpen, closeAllPopups])
+    }, [isOpen])
 
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) {
@@ -163,9 +162,10 @@ function App(props) {
   // Выход
 
   const history = useHistory();
+  // const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
 
   function signOut(){
-    // Cookies.remove('jwt');
+    apiSettings.logout()
     setLoggedIn({
       loggedIn: false})
   }
@@ -216,7 +216,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, [loggedIn]); //
+  }, []); //
 
 
     // Register api
