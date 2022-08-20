@@ -13,8 +13,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
-console.log(process.env);
-
 const { PORT = 3000 } = process.env;
 const app = express();
 app.use(cors({
@@ -40,36 +38,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger); // подключаем логгер запросов
 
-// const allowedCors = [
-//   'https://alexander.abramov.nomoredomains.sbs',
-//   'http://alexander.abramov.nomoredomains.sbs',
-//   'http://localhost:3000',
-//   'https://localhost:3000',
-// ];
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
-//   const { method } = req.method;
-//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-//   const requestHeaders = req.headers['access-control-request-headers'];
-
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//     res.header('Access-Control-Allow-Credentials', true);
-//   }
-
-//   if (method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-//     res.header('Access-Control-Allow-Headers', requestHeaders);
-//     // res.end();
-//     // return;
-//   }
-
-//   next();
-// });
-
-// роуты, не требующие авторизации,
-// например, регистрация и логин
+// роуты, не требующие авторизации
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
