@@ -65,7 +65,8 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.get('/logout', (req, res) => {
-  res.status(200).clearCookie('jwt');
+  res.clearCookie('jwt');
+  res.sendStatus(200);
 });
 
 // роуты, которым авторизация нужна
