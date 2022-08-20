@@ -204,7 +204,7 @@ function App(props) {
           })
         }})
       .then(()=> {
-          props.history.push("/")
+        props.history.push("/")
       })
       .catch((err) => console.log(err));
     }

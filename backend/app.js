@@ -66,7 +66,7 @@ app.use(auth);
 
 app.get('/logout', (req, res) => {
   res.clearCookie('jwt');
-  res.sendStatus(200);
+  res.sendStatus(200).send({ message: 'Разлогирование прошло успешно!' });
 });
 
 // роуты, которым авторизация нужна
