@@ -213,7 +213,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, []);
+  }, [loggedIn]);
 
 
     // Register api
