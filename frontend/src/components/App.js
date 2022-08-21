@@ -164,10 +164,13 @@ function App(props) {
   const history = useHistory();
 
   function signOut(){
+    localStorage.removeItem('isLogged')
     auth.logout()
-    setLoggedIn({
-      loggedIn: false})
-    history.push('/sign-in');
+    // .then(() => {
+    //   setLoggedIn({
+    //     loggedIn: false})
+    // })
+    .then(() => history.push('/sign-in'))
   }
 
 
@@ -181,6 +184,7 @@ function App(props) {
             loggedIn: true,
             email: useFormData.values.email
           })
+          localStorage.setItem('isLogged', 'true')
           history.push('/');
         }
     })
@@ -194,7 +198,7 @@ function App(props) {
   }
 
   function handleGetContent(){
-    if (!loggedIn) {
+    if (localStorage.getItem('isLogged')) {
       auth.checkToken()
       .then((res) => {
         if (res) {
@@ -213,7 +217,7 @@ function App(props) {
 
   useEffect(() => {
     handleGetContent()
-  }, [loggedIn]);
+  }, []);
 
 
     // Register api
