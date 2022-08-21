@@ -64,8 +64,13 @@ app.post('/signup', celebrate({
 // авторизация
 app.use(auth);
 
-app.get('/logout', (req, res) => {
-  res.send(200).send({ message: 'Разлогирование прошло успешно!' }).clearCookie('jwt');
+app.post('/logout', (req, res) => {
+  const token = req.cookies.jwt;
+  res.cookie('jwt', token, {
+    maxAge: 1,
+    httpOnly: true,
+  })
+    .send({ message: 'Выход прошёл успешно!' });
 });
 
 // роуты, которым авторизация нужна
