@@ -11,121 +11,32 @@ const ConflictError = require('../errors/conflict-err');
 
 const DUPLICATE_ERROR_CODE = 11000;
 
-// GET /users — return all users
-module.exports.getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({});
-    res.send(users);
-  } catch (err) {
-    next(err);
-  }
-};
-
-// GET /users/:userId - return the user by _id
-module.exports.getUserById = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      throw new NotFoundError('The user with the specified id was not found');
-    }
-    res.send(user);
-  } catch (err) {
-    if (err.name === 'CastError') {
-      next(new BadRequestError('Incorrect data was transmitted during the search'));
-    } else {
-      next(err);
-    }
-  }
-};
-
-// POST /users — create a user
+// POST /signup
 module.exports.createUser = (req, res, next) => {
   const {
-    email, password, name, about, avatar,
+    email, password, name,
   } = req.body;
   return bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email,
       password: hash,
       name,
-      about,
-      avatar,
     }))
     .then((user) => {
-      res.send({ message: 'Registration was successful!', _id: user._id, email: user.email });
+      res.send({ message: 'Регистрация прошла успешно!', _id: user._id, email: user.email });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Incorrect data was transmitted when creating a user'));
+        next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
       } else if (err.code === DUPLICATE_ERROR_CODE) {
-        next(new ConflictError('The user with this email already exists'));
+        next(new ConflictError('Пользователь с данным email уже существует'));
       } else {
         next(err);
       }
     });
 };
 
-// PATCH /users/me — update the profile
-module.exports.UpdateUser = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { name: req.body.name, about: req.body.about },
-      {
-        new: true,
-        runValidators: true,
-      },
-    );
-    if (user) {
-      res.send(user);
-    } else {
-      throw new NotFoundError('The user with the specified id was not found');
-    }
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      next(new BadRequestError('Incorrect data was transmitted when updating the profile'));
-    } else {
-      next(err);
-    }
-  }
-};
-
-// GET /users/me - return information about the current user
-module.exports.getUser = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user._id);
-    res.send(user);
-  } catch (err) {
-    next(err);
-  }
-};
-
-// PATCH /users/me/avatar — update the avatar
-exports.updateAvatar = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { avatar: req.body.avatar },
-      {
-        new: true,
-        runValidators: true,
-      },
-    );
-    if (user) {
-      res.send(user);
-    } else {
-      throw new NotFoundError('The user with the specified id was not found');
-    }
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      next(new BadRequestError('Incorrect data was transmitted when updating the avatar'));
-    } else {
-      next(err);
-    }
-  }
-};
-
-// User login
+// POST /signin
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -136,10 +47,63 @@ module.exports.login = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000,
           httpOnly: true,
+          sameSite: 'None',
+          secure: true,
         })
-        .send({ message: 'Authorization was successful!' });
+        .send({ message: 'Авторизация прошла успешно!' });
     })
     .catch(() => {
-      next(new UnauthorizedError('Authentication error'));
+      next(new UnauthorizedError('Ошибка аутентификации'));
     });
+};
+
+// PATCH /users/me
+module.exports.updateUser = async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { name: req.body.name, email: req.body.email },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+    if (user) {
+      res.send(user);
+    } else {
+      throw new NotFoundError('Пользователь по указанному id не найден');
+    }
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
+    } else {
+      next(err);
+    }
+  }
+};
+
+// GET /users/me
+module.exports.getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// POST /logout
+module.exports.logout = async (req, res, next) => {
+  try {
+    const token = req.cookies.jwt;
+    res.cookie('jwt', token, {
+      maxAge: 1,
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+    })
+      .send({ message: 'Выход прошёл успешно!' });
+  } catch (err) {
+    next(err);
+  }
 };
