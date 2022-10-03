@@ -44,9 +44,7 @@ mongoose.connect(
   (err) => {
     if (err) throw err;
   },
-).then((connection) => {
-  connection.db.dropDatabase();
-});
+);
 
 // routes with no auth
 app.post(
