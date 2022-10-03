@@ -41,15 +41,13 @@ module.exports.getUserById = async (req, res, next) => {
 // POST /users — create a user
 module.exports.createUser = (req, res, next) => {
   const {
-    email, password, name, about, avatar,
+    email, password, name,
   } = req.body;
   return bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email,
       password: hash,
       name,
-      about,
-      avatar,
     }))
     .then((user) => {
       res.send({ message: 'Registration was successful!', _id: user._id, email: user.email });
@@ -70,7 +68,7 @@ module.exports.updateUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      { name: req.body.name, about: req.body.about },
+      { name: req.body.name, email: req.body.email },
       {
         new: true,
         runValidators: true,
