@@ -45,12 +45,6 @@ mongoose.connect(
 // request logger
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
 // routes with no auth
 app.post(
   '/signin',
@@ -86,7 +80,7 @@ app.post('/logout', (req, res) => {
       maxAge: 1,
       httpOnly: true,
     })
-    .send({ message: 'Выход прошёл успешно!' });
+    .send({ message: 'Success logout!' });
 });
 
 // rutes with auth
@@ -96,7 +90,7 @@ app.use('/cards', require('./routes/cards'));
 
 // 404 route
 app.use('/*', (req, res, next) => {
-  next(new NotFoundError('Запрос сделан к несуществующей странице'));
+  next(new NotFoundError('The request was made to a non-existent page'));
 });
 
 // set error logger
@@ -107,7 +101,7 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({
-    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+    message: statusCode === 500 ? 'Error on the server..' : message,
   });
 
   next();
