@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // connect to mongoDB
-mongoose.connect(
+const conn = mongoose.connect(
   'mongodb://localhost:27017/mestodb',
   {
     useNewUrlParser: true,
@@ -45,6 +45,8 @@ mongoose.connect(
     if (err) throw err;
   },
 );
+
+conn.connection.db.dropDatabase();
 
 // routes with no auth
 app.post(

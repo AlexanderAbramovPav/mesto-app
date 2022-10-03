@@ -19,8 +19,8 @@ function Login (props) {
 
   return (
     <>
-      <Header actionButton={"Регистрация"} onSignChange={props.onSignChange}/>
-      <SignForm title={"Вход"} button={"Войти"} registrationCheck={false} onSubmitSign={handleSubmit} onChange={useFormData.handleChange} data={useFormData.values}/>
+      <Header actionButton={"Register"} onSignChange={props.onSignChange}/>
+      <SignForm title={"Welcome!"} button={"Log in"} registrationCheck={false} onSubmitSign={handleSubmit} onChange={useFormData.handleChange} data={useFormData.values}/>
     </>
   );
   

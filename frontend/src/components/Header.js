@@ -7,7 +7,7 @@ function Header(props) {
     <header className="header">
         <img
         src={mestoLogo}
-        alt="Логотип Mesto"
+        alt="Logo Mesto"
         className="header__logo"
         />
         <div className="header__container">

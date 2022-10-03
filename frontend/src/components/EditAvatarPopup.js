@@ -24,15 +24,15 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onSubmit={handleSubmit}
       name="avatar"
-      title="Обновить аватар"
-      submit="Сохранить"
+      title="Update avatar"
+      submit="Save"
       onOutClick={props.onOutClick}
     >
       <label className="popup__field">
         <input
           type="url"
           className="popup__input popup__input_type-avatar-link"
-          placeholder="Ссылка на аватар"
+          placeholder="Avatar link"
           name="avatar-link"
           required
           id="url-avatar-input"

@@ -9,7 +9,7 @@ function ImagePopup(props) {
             className="popup__image"
           />
           <p className="popup__img-title">{props.card?.name}</p>
-          <button className="popup__close-btn popup-img-close-btn" type="button" aria-label="Закрыть карточку" onClick={props.onClose}></button>
+          <button className="popup__close-btn popup-img-close-btn" type="button" aria-label="Close the card" onClick={props.onClose}></button>
       </div>
     </div>
   );

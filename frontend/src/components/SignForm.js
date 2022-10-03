@@ -22,7 +22,7 @@ function SignForm(props) {
                 <input 
                     type="password"
                     className="sign-form__input"
-                    placeholder="password"
+                    placeholder="Password"
                     name="password"
                     required
                     minLength="2"
