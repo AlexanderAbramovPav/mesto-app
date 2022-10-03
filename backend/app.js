@@ -15,6 +15,10 @@ const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,256}\
 
 const { PORT = 3000 } = process.env;
 const app = express();
+
+// request logger
+app.use(requestLogger);
+
 app.use(
   cors({
     origin: [
@@ -23,7 +27,7 @@ app.use(
     ],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
-    allowedHeaders: ['Authorization', 'Content-type'],
+    allowedHeaders: ['Authorization', 'Content-type', 'Accept'],
   }),
 );
 
@@ -41,9 +45,6 @@ mongoose.connect(
     if (err) throw err;
   },
 );
-
-// request logger
-app.use(requestLogger);
 
 // routes with no auth
 app.post(
