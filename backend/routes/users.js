@@ -2,12 +2,10 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 
 const {
-  getUsers, getUserById, updateUser, updateAvatar, getUser,
+  getUserById, updateUser, updateAvatar, getUser,
 } = require('../controllers/users');
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
-
-router.get('/', getUsers);
 
 router.get('/me', getUser);
 

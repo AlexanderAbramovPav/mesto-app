@@ -9,26 +9,26 @@ const userSchema = new mongoose.Schema({
     required: false,
     minlength: 2,
     maxlength: 30,
-    default: 'Жак-Ив Кусто',
+    default: 'Zhak-Iv Kusto',
   },
   about: {
     type: String,
     required: false,
     minlength: 2,
     maxlength: 30,
-    default: 'Исследователь',
+    default: 'Researcher',
   },
   avatar: {
     type: String,
     required: false,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
-    validate: [validator.isURL, 'Введена некорректная ссылка'],
+    validate: [validator.isURL, 'Invalid link entered'],
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    validate: [validator.isEmail, 'Введен некорректный email'],
+    validate: [validator.isEmail, 'Invalid email entered'],
   },
   password: {
     type: String,
@@ -41,13 +41,13 @@ userSchema.statics.findUserByCredentials = function userFind(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error('Неправильные почта или пароль'));
+        return Promise.reject(new Error('Incorrect email or password'));
       }
 
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new Error('Неправильные почта или пароль'));
+            return Promise.reject(new Error('Incorrect email or password'));
           }
 
           return user;

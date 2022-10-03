@@ -5,9 +5,9 @@ function PopupWithForm(props) {
         <h2 className="popup__title">{props.title}</h2>
         <form className="popup__form" name={`form_${props.name}`} onSubmit={props.onSubmit} >
             {props.children}
-          <button className="popup__submit-btn" aria-label="Подтвердить действие" type="submit" name="submit-button">{props.submit}</button>
+          <button className="popup__submit-btn" aria-label="submit action" type="submit" name="submit-button">{props.submit}</button>
         </form>
-        <button className="popup__close-btn" type="button" aria-label="Закрыть попап" onClick={props.onClose}></button>
+        <button className="popup__close-btn" type="button" aria-label="close popup" onClick={props.onClose}></button>
       </div>
     </div>
   );

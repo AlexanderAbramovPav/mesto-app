@@ -4,7 +4,7 @@ const BadRequestError = require('../errors/bad-req-err');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
-// GET /cards — возвращает все карточки
+// GET /cards — return all cards
 module.exports.getCards = async (req, res, next) => {
   try {
     const cards = await Card.find({});
@@ -14,7 +14,7 @@ module.exports.getCards = async (req, res, next) => {
   }
 };
 
-// POST /cards — создаёт карточку
+// POST /cards — create a card
 module.exports.createCard = async (req, res, next) => {
   try {
     const { name, link } = req.body;
@@ -22,37 +22,37 @@ module.exports.createCard = async (req, res, next) => {
     res.send(await newCard.save());
   } catch (err) {
     if (err.name === 'ValidationError') {
-      next(new BadRequestError('Переданы некорректные данные при создании карточки'));
+      next(new BadRequestError('Incorrect data was transmitted when creating the card'));
     } else {
       next(err);
     }
   }
 };
 
-// DELETE /cards/:cardId — удаляет карточку по идентификатору
+// DELETE /cards/:CardID — delete the card by the ID
 module.exports.deleteCardById = async (req, res, next) => {
   try {
     const deletedCard = await Card.findById(req.params.cardId);
     if (deletedCard) {
       if (req.user._id === deletedCard.owner._id.toString()) {
         await Card.findByIdAndRemove(req.params.cardId);
-        res.send({ message: 'Следующие данные карточки были удалены', deletedCard });
+        res.send({ message: 'The following card data has been deleted', deletedCard });
       } else {
-        throw new ForbiddenError('Чужую карточку не удалить');
+        throw new ForbiddenError('You cant delete someone else card');
       }
     } else {
-      throw new NotFoundError('Карточка не найдена');
+      throw new NotFoundError('Card not found');
     }
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new BadRequestError('Передан некорректный id карточки'));
+      next(new BadRequestError('Invalid card id was passed'));
     } else {
       next(err);
     }
   }
 };
 
-// PUT /cards/:cardId/likes — поставить лайк карточке
+// PUT /cards/:CardID/likes — like the card
 module.exports.likeCard = async (req, res, next) => {
   try {
     const likedCard = await Card.findById(req.params.cardId);
@@ -64,18 +64,18 @@ module.exports.likeCard = async (req, res, next) => {
       );
       res.send(pressLike);
     } else {
-      throw new NotFoundError('Карточка по указанному id не найдена');
+      throw new NotFoundError('Card not found by specified id');
     }
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new BadRequestError('Передан некорректный id карточки'));
+      next(new BadRequestError('Invalid card id was passed'));
     } else {
       next(err);
     }
   }
 };
 
-// DELETE /cards/:cardId/likes — убрать лайк с карточки
+// DELETE /cards/:CardID/likes — remove the like from the card
 module.exports.dislikeCard = async (req, res, next) => {
   try {
     const dislikedCard = await Card.findById(req.params.cardId);
@@ -87,11 +87,11 @@ module.exports.dislikeCard = async (req, res, next) => {
       );
       res.send(pressLike);
     } else {
-      throw new NotFoundError('Карточка по указанному id не найдена');
+      throw new NotFoundError('Card not found by specified id');
     }
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new BadRequestError('Передан некорректный id карточки'));
+      next(new BadRequestError('Invalid card id was passed'));
     } else {
       next(err);
     }

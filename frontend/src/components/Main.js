@@ -14,17 +14,17 @@ function Main(props) {
                     <img 
                         src={currentUser?.avatar}
                         className="profile__avatar"
-                        alt="Логотип Пользователя"
+                        alt="user avatar"
                     />
-                    <button className="profile__avatar-overlay" type="button" aria-label="Обновление аватара" onClick={props.onEditAvatar}></button>
+                    <button className="profile__avatar-overlay" type="button" aria-label="update avatar" onClick={props.onEditAvatar}></button>
                 </div>
 
                 <div className="profile__info-container">
                     <h1 className="profile__name">{currentUser?.name}</h1>
-                    <button className="profile__edit-btn" type="button" aria-label="Изменение информации о себе" onClick={props.onEditProfile}></button>
+                    <button className="profile__edit-btn" type="button" aria-label="update persnal info" onClick={props.onEditProfile}></button>
                     <p className="profile__about">{currentUser?.about}</p>
                 </div>
-                <button className="profile__add-btn" type="button" aria-label="Добаление новой карточки" onClick={props.onAddPlace}></button>
+                <button className="profile__add-btn" type="button" aria-label="add new card" onClick={props.onAddPlace}></button>
             </section>
 
             <section className="elements">

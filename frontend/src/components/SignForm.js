@@ -22,7 +22,7 @@ function SignForm(props) {
                 <input 
                     type="password"
                     className="sign-form__input"
-                    placeholder="Пароль"
+                    placeholder="password"
                     name="password"
                     required
                     minLength="2"
@@ -31,7 +31,7 @@ function SignForm(props) {
                     value={props.data?.password || ''}
                     onChange={props.onChange}
                 />
-                <button className='sign-form__submit-btn' aria-label="Подтвердить действие" type="submit" name="submit-button">{props.button}</button>
+                <button className='sign-form__submit-btn' aria-label="Submit action" type="submit" name="submit-button">{props.button}</button>
             </form>
         </div>
     );
