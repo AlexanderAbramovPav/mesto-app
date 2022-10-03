@@ -105,7 +105,7 @@ function App(props) {
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setUserCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.reverse().map((c) => (c._id === card._id ? newCard : c))
         );
       })
       .catch((err) => {
@@ -260,7 +260,7 @@ function App(props) {
           component={
             <div className="page page_preload">
               <Header
-                actionButton={"Exit"}
+                actionButton={"Log out"}
                 onLogoutClick={signOut}
                 onSignChange={"/sign-in"}
                 loggedIn={loggedIn}

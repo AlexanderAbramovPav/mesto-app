@@ -28,7 +28,7 @@ function Main(props) {
             </section>
 
             <section className="elements">
-                {props.userCards?.map((item) => (
+                {props.userCards?.reverse().map((item) => (
                     <Card key={item._id} item={item} name={item.name} link={item.link} likes={item.likes} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} userCards={props.userCards}/>
                 ))}
             </section>
