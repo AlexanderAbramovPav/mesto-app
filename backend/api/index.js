@@ -6,10 +6,10 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi } = require('celebrate');
 const cors = require('cors');
-const auth = require('./middlewares/auth');
-const { createUser, login } = require('./controllers/users');
-const NotFoundError = require('./errors/not-found-err');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const auth = require('../middlewares/auth');
+const { createUser, login } = require('../controllers/users');
+const NotFoundError = require('../errors/not-found-err');
+const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
@@ -85,9 +85,9 @@ app.post('/logout', (req, res) => {
 });
 
 // rutes with auth
-app.use('/users', require('./routes/users'));
+app.use('/users', require('../routes/users'));
 
-app.use('/cards', require('./routes/cards'));
+app.use('/cards', require('../routes/cards'));
 
 // 404 route
 app.use('/*', (req, res, next) => {
