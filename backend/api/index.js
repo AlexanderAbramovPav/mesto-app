@@ -21,7 +21,7 @@ app.use(requestLogger);
 
 app.use(
   cors({
-    origin: '*',
+    origin: ['https://*', 'http://*'],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
     optionsSuccessStatus: 200,
