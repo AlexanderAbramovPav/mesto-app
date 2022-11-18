@@ -21,7 +21,7 @@ app.use(requestLogger);
 
 app.use(
   cors({
-    origin: ['https://react-mesto-now.vercel.app', 'http://react-mesto-now.vercel.app'],
+    origin: ['http://alexander.abramov.nomoredomains.sbs/', 'https://alexander.abramov.nomoredomains.sbs/'],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
     optionsSuccessStatus: 200,
