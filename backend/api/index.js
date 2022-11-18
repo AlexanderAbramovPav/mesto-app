@@ -21,10 +21,7 @@ app.use(requestLogger);
 
 app.use(
   cors({
-    origin: [
-      'https://react-mesto-api-full-murex.vercel.app',
-      'http://react-mesto-api-full-murex.vercel.app',
-    ],
+    origin: '*',
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
     optionsSuccessStatus: 200,
