@@ -22,8 +22,8 @@ app.use(requestLogger);
 app.use(
   cors({
     origin: [
-      'https://alexander.abramov.nomoredomains.sbs',
-      'http://alexander.abramov.nomoredomains.sbs',
+      'https://react-mesto-api-full-murex.vercel.app',
+      'http://react-mesto-api-full-murex.vercel.app',
     ],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
