@@ -21,8 +21,7 @@ app.use(requestLogger);
 
 app.use(
   cors({
-    origin: ['https://*', 'http://*'],
-    credentials: true,
+    origin: '*',
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
     optionsSuccessStatus: 200,
     allowedHeaders: ['Authorization', 'Content-type', 'Accept', 'X-CSRF-Token', 'X-Requested-With', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
