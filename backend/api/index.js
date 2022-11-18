@@ -27,6 +27,8 @@ app.use(
     ],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+    preflightContinue: true,
+    optionsSuccessStatus: 200,
     allowedHeaders: ['Authorization', 'Content-type', 'Accept', 'X-CSRF-Token', 'X-Requested-With', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
   }),
 );
