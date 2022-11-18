@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://react-mesto-now-api.vercel.app';
+export const BASE_URL = 'api.alexander.abramov.nomoredomains.sbs';
 
 export const getServerStatus = (res) => {
     if (res.ok) {
