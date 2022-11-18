@@ -26,3 +26,4 @@ https://alexander.abramov.nomoredomains.sbs
 * Add infinite feed scrolling
 * Add GraphQL
 * Add Formik
+* Migrate to Vercel
