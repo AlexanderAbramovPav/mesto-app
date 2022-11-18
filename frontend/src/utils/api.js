@@ -104,7 +104,7 @@ export default class Api {
 }
 
 export const apiSettings = new Api({
-  baseUrl: "https://react-mesto-now-api.vercel.app",
+  baseUrl: "api.alexander.abramov.nomoredomains.sbs",
   headers: {
     "Content-Type": "application/json",
   },
