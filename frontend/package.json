@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* abramov@51.250.12.128:/home/abramov/react-mesto-api-full/mesto-frontend"
+    "deploy": "npm run build && scp -r ./build/* abramov@130.193.50.108:/home/abramov/react-mesto-api-full/mesto-frontend"
   },
   "eslintConfig": {
     "extends": [

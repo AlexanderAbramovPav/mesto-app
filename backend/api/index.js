@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -21,7 +22,7 @@ app.use(requestLogger);
 
 app.use(
   cors({
-    origin: ['http://alexander.abramov.nomoredomains.sbs/', 'https://alexander.abramov.nomoredomains.sbs/'],
+    origin: ['http://alexander.abramov.nomoredomains.sbs', 'https://alexander.abramov.nomoredomains.sbs'],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
     optionsSuccessStatus: 200,
