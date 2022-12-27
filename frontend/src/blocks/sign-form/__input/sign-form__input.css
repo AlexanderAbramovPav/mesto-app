@@ -11,6 +11,16 @@
     border: 0;
     outline: 0;
     border-bottom: 2px solid #CCCCCC;
-    padding: 0 0 10px 0;
+    border-radius: 4px;
+    padding: 10px;
     margin: 30px auto 0 auto;
+    transition: opacity 0.3s ease-in-out;
 }
+
+.sign-form__input:focus {
+    background-color: rgba(189, 185, 185, 0.144);
+  }
+
+  .sign-form__input:hover {
+    opacity: 0.7;
+  }

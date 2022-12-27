@@ -29,6 +29,7 @@ function App(props) {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isPhotoSelected, setIsPhotoSelected] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [selectedTooltip, setSelectedTooltip] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
@@ -40,7 +41,7 @@ function App(props) {
       Promise.all([apiSettings.getUserInfo(), apiSettings.getInitialCards()])
         .then(([currentUser, cards]) => {
           setCurrentUser(currentUser);
-          setUserCards(cards);
+          setUserCards(cards.reverse());
         })
         .catch((err) => console.log(`${err}`));
     }
@@ -91,10 +92,8 @@ function App(props) {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsInfoTooltipOpen(false);
-    setTimeout(() => {
-      setSelectedCard(null);
-      setSelectedTooltip(null);
-    }, 200);
+    setSelectedTooltip(null);
+    setIsPhotoSelected(false);
   }
 
   // All by cards
@@ -105,7 +104,7 @@ function App(props) {
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setUserCards((state) =>
-          state.reverse().map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
       .catch((err) => {
@@ -136,6 +135,11 @@ function App(props) {
       });
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setIsPhotoSelected(true);
+  }
+
   // Closing by escape and overlay
 
   const isOpen =
@@ -143,6 +147,7 @@ function App(props) {
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
     selectedCard ||
+    isPhotoSelected ||
     isInfoTooltipOpen;
 
   useEffect(() => {
@@ -269,7 +274,7 @@ function App(props) {
                 onEditProfile={handleEditProfileClick}
                 onAddPlace={handleAddPlaceClick}
                 onEditAvatar={handleEditAvatarClick}
-                onCardClick={setSelectedCard}
+                onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
                 userCards={userCards}
@@ -296,6 +301,7 @@ function App(props) {
                 onClose={closeAllPopups}
                 card={selectedCard}
                 onOutClick={handleOverlay}
+                isPhotoSelected={isPhotoSelected}
               />
             </div>
           }
