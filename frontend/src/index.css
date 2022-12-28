@@ -15,6 +15,7 @@
 @import url(./blocks/sign-form/__input/sign-form__input.css);
 @import url(./blocks/sign-form/__submit-btn/sign-form__submit-btn.css);
 @import url(./blocks/sign-form/__title/sign-form__title.css);
+@import url(./blocks/sign-form/__error/sign-form__error.css);
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__about/profile__about.css);

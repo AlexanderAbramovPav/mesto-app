@@ -21,3 +21,9 @@
 .sign-form__submit-btn:hover {
     opacity: 0.85;
 }
+
+.sign-form__submit-btn:disabled {
+    opacity: 0.85;
+    cursor: initial;
+    background-color: gray;
+}

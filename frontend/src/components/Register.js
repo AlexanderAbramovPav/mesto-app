@@ -1,26 +1,19 @@
 import React from 'react';
 import Header from './Header';
-import SignForm from './SignForm';
+import SignFormik from './SignFormik';
 import {withRouter} from 'react-router-dom';
-import useForm from '../hooks/useForm';
 
 function Register (props) {
 
-  const useFormData = useForm()
+  function handleSubmit(values) {
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    props.onRegister(useFormData);
-    useFormData.setValues({
-      email: '',
-      password: ''
-    })
+    props.onRegister(values);
   }
 
   return (
     <>
       <Header actionButton={"Log in"} onSignChange={props.onSignChange}/>
-      <SignForm title={"Registration"} button={"Register"} registrationCheck={true} onSubmitSign={handleSubmit} onChange={useFormData.handleChange} data={useFormData.values}/>
+      <SignFormik title={"Registration"} button={"Register"} registrationCheck={true} onSubmitSign={handleSubmit}/>
     </>
   );
   
