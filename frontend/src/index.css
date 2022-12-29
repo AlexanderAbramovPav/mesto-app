@@ -68,3 +68,5 @@
 @import url(./blocks/popup/__submit-btn/_inactive/popup__submit-btn_inactive.css);
 @import url(./blocks/popup/__input/_type-error/popup__input_type-error.css);
 @import url(./blocks/popup/__field/popup__field.css);
+
+@import "react-loading-skeleton/dist/skeleton.css";

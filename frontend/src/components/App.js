@@ -34,16 +34,18 @@ function App(props) {
   const [selectedTooltip, setSelectedTooltip] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [userCards, setUserCards] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([apiSettings.getUserInfo(), apiSettings.getInitialCards()])
+      setTimeout(() => {
+        Promise.all([apiSettings.getUserInfo(), apiSettings.getInitialCards()])
         .then(([currentUser, cards]) => {
           setCurrentUser(currentUser);
           setUserCards(cards.reverse());
         })
         .catch((err) => console.log(`${err}`));
+      }, 1000)   
     }
   }, [loggedIn]);
 
