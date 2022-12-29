@@ -1,5 +1,5 @@
 .popup__submit-btn {
-  display: block;
+  display: inline-block;
   padding: 0;
   margin: 50px 36px 37px 36px;
   width: auto;
@@ -20,6 +20,12 @@
 }
 
 .popup__submit-btn:hover {
+  opacity: 0.8;
+}
+
+.popup__submit-btn:disabled {
+  background-color: gray;
+  cursor: initial;
   opacity: 0.8;
 }
 

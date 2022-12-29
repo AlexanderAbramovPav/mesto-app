@@ -1,4 +1,5 @@
 .sign-form__input {
+    position: relative;
     width: 358px;
     height: 14px;
     font-family: 'Inter';

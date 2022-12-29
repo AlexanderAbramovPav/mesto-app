@@ -1,10 +1,10 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import AddPlacePopup from "./AddPlacePopup";
+import AddPlaceFormik from "./AddPlaceFormik";
 import ImagePopup from "./ImagePopup";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
+import EditProfileFormik from "./EditProfileFormik";
+import EditAvatarFormik from "./EditAvatarFormik";
 import React, { useState, useEffect } from "react";
 import { apiSettings } from "../utils/api.js";
 import * as auth from "../utils/Auth.js";
@@ -96,7 +96,7 @@ function App(props) {
     setIsPhotoSelected(false);
   }
 
-  // All by cards
+  // All for cards
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
@@ -189,13 +189,14 @@ function App(props) {
 
   function handleLogin(useFormData) {
     auth
-      .authorize(useFormData.values.password, useFormData.values.email)
+      .authorize(useFormData.password, useFormData.email)
       .then((res) => {
         if (res) {
           setLoggedIn({
             loggedIn: true,
-            email: useFormData.values.email,
+            email: useFormData.email,
           });
+
           localStorage.setItem("isLogged", "true");
           history.push("/");
         }
@@ -236,7 +237,7 @@ function App(props) {
 
   function handleRegister(useFormData) {
     auth
-      .register(useFormData.values.password, useFormData.values.email)
+      .register(useFormData.password, useFormData.email)
       .then((res) => {
         if (res) {
           handleSignSubmitPopup({
@@ -279,19 +280,19 @@ function App(props) {
                 onCardDelete={handleCardDelete}
                 userCards={userCards}
               />
-              <EditAvatarPopup
+              <EditAvatarFormik
                 isOpen={isEditAvatarPopupOpen}
                 onClose={closeAllPopups}
                 onUpdateUser={handleUpdateAvatar}
                 onOutClick={handleOverlay}
               />
-              <EditProfilePopup
+              <EditProfileFormik
                 isOpen={isEditProfilePopupOpen}
                 onClose={closeAllPopups}
                 onUpdateUser={handleUpdateUser}
                 onOutClick={handleOverlay}
               />
-              <AddPlacePopup
+              <AddPlaceFormik
                 isOpen={isAddPlacePopupOpen}
                 onClose={closeAllPopups}
                 onAddPlace={handleAddPlaceSubmit}
