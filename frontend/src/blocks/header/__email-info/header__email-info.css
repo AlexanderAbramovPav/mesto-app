@@ -12,3 +12,9 @@
     text-align: right;
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 767px) {
+    .header__email-info {
+      display: none;
+    }
+  }

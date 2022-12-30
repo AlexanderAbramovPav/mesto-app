@@ -10,3 +10,12 @@
   position: relative;
 }
 
+.element_skeleton {
+  display: block;
+  margin: 10px;
+  max-width: 280px;
+  height: 350px;
+  border-radius: 10px;
+}
+
+
