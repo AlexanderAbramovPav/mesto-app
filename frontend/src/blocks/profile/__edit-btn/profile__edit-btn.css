@@ -12,6 +12,7 @@
   cursor: pointer;
   display: grid;
   grid-area: button;
+  position: static;
 }
 
 .profile__edit-btn:hover {

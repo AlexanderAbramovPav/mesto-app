@@ -6,9 +6,7 @@ import ImagePopup from "./ImagePopup";
 import EditProfileFormik from "./EditProfileFormik";
 import EditAvatarFormik from "./EditAvatarFormik";
 import React, { useState, useEffect } from "react";
-import { apiSettings } from "../utils/api.js";
 import * as auth from "../utils/Auth.js";
-import { CurrentUserContext } from "../context/CurrentUserContext";
 import {
   Route,
   Switch,
@@ -24,6 +22,9 @@ import InfoTooltip from "./InfoTooltip.js";
 import errorIcon from "../images/icon-error.svg";
 import okIcon from "../images/icon-ok.svg";
 
+import { useQuery, useMutation, useQueryClient } from 'react-query' ///
+import { fetchUserInfo, updateUserInfo, updateUserAvatar, changeLikeCardStatus, deleteUserCard, addUserCard } from "../utils/apiQuery"; ///
+
 function App(props) {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -32,24 +33,10 @@ function App(props) {
   const [isPhotoSelected, setIsPhotoSelected] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [selectedTooltip, setSelectedTooltip] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userCards, setUserCards] = useState(null);
   const [loggedIn, setLoggedIn] = useState(null);
 
-  useEffect(() => {
-    if (loggedIn) {
-      setTimeout(() => {
-        Promise.all([apiSettings.getUserInfo(), apiSettings.getInitialCards()])
-        .then(([currentUser, cards]) => {
-          setCurrentUser(currentUser);
-          setUserCards(cards.reverse());
-        })
-        .catch((err) => console.log(`${err}`));
-      }, 1000)   
-    }
-  }, [loggedIn]);
 
-  // Processing clicks on Avatar, Profile
+  // Processing clicks on Avatar, Profile, Place add
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -63,28 +50,45 @@ function App(props) {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleUpdateUser(data) {
-    apiSettings
-      .patchUserInfo(data)
-      .then((updateInfo) => {
-        setCurrentUser(updateInfo);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.log(err);
+
+
+  /// User info handlers
+  const queryClient = useQueryClient()
+  
+  const userInfoMutation = useMutation (info => updateUserInfo(info), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('userInfo');
+      closeAllPopups();
+    },
+    onError: (error) => {
+      console.log(error);
+      handleSignSubmitPopup({
+        icon: errorIcon,
+        tipTitle: "Something went wrong! Try again.",
       });
+    }
+  })
+
+  function handleUpdateUser(data) {
+    userInfoMutation.mutate(data)
   }
+  
+  const userAvatarMutation = useMutation (info => updateUserAvatar(info), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('userInfo');
+      closeAllPopups();
+    },
+    onError: (error) =>{
+      console.log(error);
+      handleSignSubmitPopup({
+        icon: errorIcon,
+        tipTitle: "Something went wrong! Try again.",
+      });
+    }
+  })
 
   function handleUpdateAvatar(data) {
-    apiSettings
-      .patchUserAvatar(data)
-      .then((updateInfo) => {
-        setCurrentUser(updateInfo);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    userAvatarMutation.mutate(data)
   }
 
   // Close all popups
@@ -98,43 +102,62 @@ function App(props) {
     setIsPhotoSelected(false);
   }
 
-  // All for cards
+  // Cards handlers
+
+  const userCardLikeMutation = useMutation (data => changeLikeCardStatus(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('userCards');
+    },
+    onError: (error) =>{
+      console.log(error);
+      handleSignSubmitPopup({
+        icon: errorIcon,
+        tipTitle: "Something went wrong! Try again.",
+      });
+    }
+  })
+
+  const userInfoQuery = useQuery("userInfo", fetchUserInfo, {staleTime: 50000})
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i === currentUser._id);
-    apiSettings
-      .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        setUserCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const isLiked = card.likes.some((i) => i === userInfoQuery.data._id);
+    userCardLikeMutation.mutate([card._id, isLiked])
   }
+
+  const userCardDeliteMutation = useMutation (data => deleteUserCard(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('userCards');
+    },
+    onError: (error) => {
+      console.log(error);
+      handleSignSubmitPopup({
+        icon: errorIcon,
+        tipTitle: "Something went wrong! Try again.",
+      });
+    }
+  })
+
 
   function handleCardDelete(card) {
-    apiSettings
-      .deleteCard(card._id)
-      .then(() => {
-        setUserCards((state) => state.filter((c) => c._id !== card._id));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    userCardDeliteMutation.mutate(card._id)
   }
 
-  function handleAddPlaceSubmit(data) {
-    apiSettings
-      .addNewCard(data)
-      .then((newCard) => {
-        setUserCards([newCard, ...userCards]);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.log(err);
+  const userCardAddMutation = useMutation (data => addUserCard(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('userCards');
+      closeAllPopups();
+    },
+    onError: (error) => {
+      console.log(error);
+      handleSignSubmitPopup({
+        icon: errorIcon,
+        tipTitle: "Something went wrong! Try again.",
       });
+    }
+  })
+
+  function handleAddPlaceSubmit(data) {
+    userCardAddMutation.mutate(data)
   }
 
   function handleCardClick(card) {
@@ -142,7 +165,7 @@ function App(props) {
     setIsPhotoSelected(true);
   }
 
-  // Closing by escape and overlay
+  // Close popups by escape and overlay
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -259,7 +282,7 @@ function App(props) {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <>
       <Switch>
         <ProtectedRoute
           exact
@@ -280,7 +303,6 @@ function App(props) {
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
-                userCards={userCards}
               />
               <EditAvatarFormik
                 isOpen={isEditAvatarPopupOpen}
@@ -349,7 +371,7 @@ function App(props) {
         onOutClick={handleOverlay}
       />
       <Footer />
-    </CurrentUserContext.Provider>
+    </>
   );
 }
 
