@@ -23,9 +23,4 @@ https://alexander.abramov.nomoredomains.sbs
 ## Futher steps:
 * Add personal page with liked cards
 * Add comments to cards
-* Add infinite feed scrolling
-* Add GraphQL
-* Add Formik
-* Add Skeleton
 * Add Date/Name Sorting
-* Add Searching
