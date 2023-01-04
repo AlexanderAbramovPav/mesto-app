@@ -22,8 +22,8 @@ import InfoTooltip from "./InfoTooltip.js";
 import errorIcon from "../images/icon-error.svg";
 import okIcon from "../images/icon-ok.svg";
 
-import { useQuery, useMutation, useQueryClient } from 'react-query' ///
-import { fetchUserInfo, updateUserInfo, updateUserAvatar, changeLikeCardStatus, deleteUserCard, addUserCard } from "../utils/apiQuery"; ///
+import { useMutation, useQueryClient } from 'react-query'
+import { updateUserInfo, updateUserAvatar, changeLikeCardStatus, deleteUserCard, addUserCard } from "../utils/apiQuery";
 
 function App(props) {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -106,7 +106,7 @@ function App(props) {
 
   const userCardLikeMutation = useMutation (data => changeLikeCardStatus(data), {
     onSuccess: () => {
-      queryClient.invalidateQueries('userCards');
+      queryClient.invalidateQueries('userSomeCards');
     },
     onError: (error) =>{
       console.log(error);
@@ -117,16 +117,13 @@ function App(props) {
     }
   })
 
-  const userInfoQuery = useQuery("userInfo", fetchUserInfo, {staleTime: 50000})
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i === userInfoQuery.data._id);
+  function handleCardLike(card, isLiked) {
     userCardLikeMutation.mutate([card._id, isLiked])
   }
 
   const userCardDeliteMutation = useMutation (data => deleteUserCard(data), {
     onSuccess: () => {
-      queryClient.invalidateQueries('userCards');
+      queryClient.invalidateQueries('userSomeCards');
     },
     onError: (error) => {
       console.log(error);
@@ -144,7 +141,7 @@ function App(props) {
 
   const userCardAddMutation = useMutation (data => addUserCard(data), {
     onSuccess: () => {
-      queryClient.invalidateQueries('userCards');
+      queryClient.invalidateQueries('userSomeCards');
       closeAllPopups();
     },
     onError: (error) => {
@@ -250,7 +247,10 @@ function App(props) {
         .then(() => {
           props.history.push("/");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          props.history.push("/sign-in");
+        });
     }
   }
 
@@ -287,7 +287,7 @@ function App(props) {
         <ProtectedRoute
           exact
           path="/"
-          loggedIn={loggedIn}
+          loggedIn={localStorage.getItem("isLogged")}
           component={
             <div className="page page_preload">
               <Header

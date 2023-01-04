@@ -16,10 +16,20 @@
 
 @media screen and (max-width: 767px) {
   .popup__field:first-of-type {
-    margin: 65px calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320))) 0 calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320)));
+    margin: 38px calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320))) 0 calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320)));
   }
 
   .popup__field:last-of-type {
     margin: 22px calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320))) 0 calc(22px + (36 - 22) * ((100vw - 320px) / (768 - 320)));
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .popup__field:first-of-type {
+    margin: 38px auto 0 auto;
+  }
+
+  .popup__field:last-of-type {
+    margin: 22px auto 0 auto;
   }
 }

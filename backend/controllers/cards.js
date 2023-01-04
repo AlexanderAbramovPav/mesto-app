@@ -7,8 +7,14 @@ const ForbiddenError = require('../errors/forbidden-err');
 // GET /cards — return all cards
 module.exports.getCards = async (req, res, next) => {
   try {
-    const cards = await Card.find({});
-    res.send(cards);
+    let { page, limit } = req.query;
+    if (!page) page = 1;
+    if (!limit) limit = 16;
+    const skip = (page - 1) * limit;
+    const totalCards = await Card.find({});
+    const cards = await Card.find({}).sort({ createdAt: -1 }).skip(skip).limit(limit);
+    const cardsLength = totalCards.length;
+    res.send({ cardsLength, page, cards });
   } catch (err) {
     next(err);
   }

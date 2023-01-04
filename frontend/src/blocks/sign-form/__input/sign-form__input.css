@@ -25,3 +25,9 @@
   .sign-form__input:hover {
     opacity: 0.7;
   }
+
+  @media screen and (max-width: 400px) {
+    .sign-form__input {
+        width: 250px;
+    }
+  }

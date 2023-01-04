@@ -63,6 +63,18 @@ const response = await fetch(`${BASE_URL}/cards`, {
   return userCards
 };
 
+export const fetchSomeUserCards = async (page = 1) => {
+  const response = await fetch(`${BASE_URL}/cards?limit=9&page=${page}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+  })
+  
+    const userCards = getServerStatus(response)
+    return userCards
+  };
 
 export const changeLikeCardStatus = async (data) => {
 
