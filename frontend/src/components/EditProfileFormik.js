@@ -1,13 +1,13 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PopupWithForm from "./PopupWithForm";
-import React, { useContext } from "react";
-import { CurrentUserContext } from "../context/CurrentUserContext";
-
+import React from "react";
+import { useQuery } from 'react-query' ///
+import { fetchUserInfo } from "../utils/apiQuery";
 
 function EditProfileFormik(props) {
-
-    const currentUser = useContext(CurrentUserContext);
+    
+    const userInfoQuery = useQuery("userInfo", fetchUserInfo, {staleTime: 50000})
 
     const PlaceSchema = Yup.object().shape({
         authorName: Yup.string()
@@ -29,9 +29,8 @@ function EditProfileFormik(props) {
 
     }
 
-
     return (
-        currentUser && (<PopupWithForm
+        userInfoQuery.data && (<PopupWithForm
             onClose={props.onClose}
             isOpen={props.isOpen}
             onSubmit={props.onSubmit}
@@ -41,8 +40,8 @@ function EditProfileFormik(props) {
         >
             <Formik
                 initialValues={{
-                    authorName: currentUser?.name,
-                    authorAbout: currentUser?.about,
+                    authorName: userInfoQuery.data?.name,
+                    authorAbout: userInfoQuery.data?.about,
                 }}
                 enableReintialize
                 validationSchema={PlaceSchema}

@@ -16,6 +16,7 @@
   max-width: 280px;
   height: 350px;
   border-radius: 10px;
+  z-index: 0;
 }
 
 

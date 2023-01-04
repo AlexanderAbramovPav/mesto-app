@@ -12,8 +12,8 @@ function EditAvatarFormik(props) {
     
     function handleSubmit(values) {
     
-        props.onAddPlace({
-          link: values.avatarLink,
+        props.onUpdateUser({
+          avatar: values.avatarLink,
         });
 
         values.avatarLink = ''
@@ -34,7 +34,6 @@ function EditAvatarFormik(props) {
                 }}
                 validationSchema={AvatarSchema}
                 onSubmit={values => {
-                    // same shape as initial values
                     handleSubmit(values);
                 }}
                 >
