@@ -19,10 +19,10 @@ function Main(props) {
 
     const userSomeCardsQuery = useInfiniteQuery(
         "userSomeCards",
-        ({ pageParam = 1 }) => fetchSomeUserCards(pageParam, sortType),
+        ({ pageParam = 1 }) => fetchSomeUserCards(pageParam, sortType, 6),
         {
           getNextPageParam: (lastPage, allPages) => {
-            const maxPages = Math.ceil(lastPage.cardsLength / 9);
+            const maxPages = Math.ceil(lastPage.cardsLength / 6);
             const nextPage = allPages.length + 1;
             return nextPage <= maxPages ? nextPage : undefined;
             },

@@ -9,7 +9,7 @@ function AddPlaceFormik(props) {
     const PlaceSchema = Yup.object().shape({
         placeName: Yup.string()
             .min(2, 'Too Short!')
-            .max(50, 'Too Long!')
+            .max(30, 'Too Long!')
             .required('Required'),
         placeLink: Yup.string().url('Invalid link').required('Required'),
     });

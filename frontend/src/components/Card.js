@@ -19,7 +19,7 @@ function Card(props) {
   };
 
   // We determine whether we are the owner of the current card
-  const isOwn = props.item.owner === userInfoQuery?.data._id;
+  const isOwn = props.item.owner === userInfoQuery.data?._id;
 
   // Creating a variable, which we will then set in `className` for the delete button
   const cardDeleteButtonClassName = `element__trash-btn ${
@@ -49,7 +49,7 @@ function Card(props) {
         onClick={handleDeleteClick}
       ></button>
       <div className="element__mesto-container">
-        <h2 className="element__title">{props.name}</h2>
+        <h2 className="element__title" title={props.name}>{props.name}</h2>
         <div className="element__like-container">
           <button
             className={cardLikeButtonClassName}
