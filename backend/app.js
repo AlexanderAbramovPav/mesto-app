@@ -23,13 +23,11 @@ app.use(requestLogger);
 app.use(
   cors({
     origin: [
-      'http://alexander.abramov.nomoredomains.sbs',
       'https://alexander.abramov.nomoredomains.sbs',
-      'http://localhost:3000',
-      'https://localhost:3000'],
+      'http://alexander.abramov.nomoredomains.sbs',
+    ],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
-    optionsSuccessStatus: 200,
     allowedHeaders: ['Authorization', 'Content-type', 'Accept'],
   }),
 );
