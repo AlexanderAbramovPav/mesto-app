@@ -104,8 +104,8 @@ export default class Api {
 }
 
 export const apiSettings = new Api({
-  // baseUrl: "api.alexander.abramov.nomoredomains.sbs",
-  baseUrl: "http://localhost:3001",
+  baseUrl: "api.alexander.abramov.nomoredomains.sbs",
+  // baseUrl: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

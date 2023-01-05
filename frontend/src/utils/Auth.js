@@ -1,5 +1,4 @@
-// export const BASE_URL = 'api.alexander.abramov.nomoredomains.sbs';
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'api.alexander.abramov.nomoredomains.sbs';
 
 export const getServerStatus = (res) => {
     if (res.ok) {

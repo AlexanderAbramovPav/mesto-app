@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_API_URL = 'api.alexander.abramov.nomoredomains.sbs';
 
 export const getServerStatus = (res) => {
     if (res.ok) {
@@ -9,7 +9,7 @@ export const getServerStatus = (res) => {
 }
 
 export const fetchUserInfo = async () => {
-    const response = await fetch(`${BASE_URL}/users/me`, {
+    const response = await fetch(`${BASE_API_URL}/users/me`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -22,7 +22,7 @@ export const fetchUserInfo = async () => {
 };
 
 export const updateUserInfo = async (bodyOptions) => {
-const response = await fetch(`${BASE_URL}/users/me`, {
+const response = await fetch(`${BASE_API_URL}/users/me`, {
     method: 'PATCH',
     credentials: 'include',
     headers: {
@@ -36,7 +36,7 @@ const response = await fetch(`${BASE_URL}/users/me`, {
 };
 
 export const updateUserAvatar = async (bodyOptions) => {
-  const response = await fetch(`${BASE_URL}/users/me/avatar`, {
+  const response = await fetch(`${BASE_API_URL}/users/me/avatar`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
@@ -51,7 +51,7 @@ export const updateUserAvatar = async (bodyOptions) => {
 
 
 export const fetchUserCards = async () => {
-const response = await fetch(`${BASE_URL}/cards`, {
+const response = await fetch(`${BASE_API_URL}/cards`, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -64,7 +64,7 @@ const response = await fetch(`${BASE_URL}/cards`, {
 };
 
 export const fetchSomeUserCards = async (page = 1, sortType) => {
-  const response = await fetch(`${BASE_URL}/cards?limit=9&page=${page}&sort=${sortType}`, {
+  const response = await fetch(`${BASE_API_URL}/cards?limit=9&page=${page}&sort=${sortType}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -81,7 +81,7 @@ export const changeLikeCardStatus = async (data) => {
   const [cardId, isLiked] = data
 
   if (isLiked) {
-    const response = await fetch(`${BASE_URL}/cards/${cardId}/likes`, {
+    const response = await fetch(`${BASE_API_URL}/cards/${cardId}/likes`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -93,7 +93,7 @@ export const changeLikeCardStatus = async (data) => {
     return userCard
 
   } else {
-    const response = await fetch(`${BASE_URL}/cards/${cardId}/likes`, {
+    const response = await fetch(`${BASE_API_URL}/cards/${cardId}/likes`, {
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -108,7 +108,7 @@ export const changeLikeCardStatus = async (data) => {
 };
 
 export const deleteUserCard = async (cardId) => {
-  const response = await fetch(`${BASE_URL}/cards/${cardId}`, {
+  const response = await fetch(`${BASE_API_URL}/cards/${cardId}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -121,7 +121,7 @@ export const deleteUserCard = async (cardId) => {
 };  
 
 export const addUserCard = async (bodyOptions) => {
-  const response = await fetch(`${BASE_URL}/cards`, {
+  const response = await fetch(`${BASE_API_URL}/cards`, {
       method: 'POST',
       credentials: 'include',
       headers: {
