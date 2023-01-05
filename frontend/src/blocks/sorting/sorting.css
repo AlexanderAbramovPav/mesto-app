@@ -1,0 +1,18 @@
+.sorting {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0;
+    margin: 20px auto 0 auto;
+    width: calc((880 / 1280) * 100%);
+    max-width: 880px;
+    align-items: center;
+}
+  
+@media screen and (max-width: 767px) {
+    .sorting {
+        flex-direction: column-reverse;
+        margin: 40px calc(19px + (117 - 19) * ((100vw - 320px) / (768 - 320))) 0 calc(19px + (117 - 19) * ((100vw - 320px) / (768 - 320)));
+        width: auto;
+    }
+}
+  

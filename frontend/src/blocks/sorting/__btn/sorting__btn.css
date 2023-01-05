@@ -1,0 +1,33 @@
+.sorting__btn {
+    margin-left: 10px;
+    padding: 0;
+    height: 30px;
+    width: 150px;
+    min-width: 50px;
+    background-color: black;
+    color: #FFFFFF;
+    font-family: Inter, Arial;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    border: solid 2px #FFFFFF;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.3s ease-in-out opacity;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  
+  .sorting__btn:hover {
+    opacity: 0.6;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .sorting__btn {
+      width: 100%;
+      margin: 10px 0 0 0;
+      background-size: 5%;
+    }
+  }
+  

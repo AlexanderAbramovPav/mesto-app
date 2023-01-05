@@ -98,8 +98,10 @@ function App(props) {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsInfoTooltipOpen(false);
-    setSelectedTooltip(null);
     setIsPhotoSelected(false);
+    setTimeout (() => {
+      setSelectedTooltip(null);
+    }, 1000)
   }
 
   // Cards handlers
@@ -250,6 +252,7 @@ function App(props) {
         .catch((err) => {
           console.log(err);
           props.history.push("/sign-in");
+          localStorage.removeItem("isLogged")
         });
     }
   }

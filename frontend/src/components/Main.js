@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Card from './Card';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { useQuery, useInfiniteQuery } from 'react-query' 
@@ -7,38 +7,47 @@ import { fetchUserInfo, fetchSomeUserCards } from "../utils/apiQuery";
 function Main(props) {
 
     const userInfoQuery = useQuery("userInfo", fetchUserInfo, {staleTime: 50000})
+
+    // sorting handlers
+    const [sortType, setSortType] = useState("dateAsc");
+
+    const hanldleSortBtnClick = async (sort) => {
+        await setSortType(sort);
+        userSomeCardsQuery.refetch()
+    }
+
+
     const userSomeCardsQuery = useInfiniteQuery(
         "userSomeCards",
-        ({ pageParam = 1 }) => fetchSomeUserCards(pageParam),
+        ({ pageParam = 1 }) => fetchSomeUserCards(pageParam, sortType),
         {
           getNextPageParam: (lastPage, allPages) => {
             const maxPages = Math.ceil(lastPage.cardsLength / 9);
             const nextPage = allPages.length + 1;
-            console.log(nextPage, maxPages);
             return nextPage <= maxPages ? nextPage : undefined;
             },
         }
       );
     
-    
-      React.useEffect(() => {
+    // scrolling handler
+    React.useEffect(() => {
         let fetching = false;
         const onScroll = async (event) => {
-          const { scrollHeight, scrollTop, clientHeight } =
+        const { scrollHeight, scrollTop, clientHeight } =
             event.target.scrollingElement;
             
-          if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
+        if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
             fetching = true;
             await userSomeCardsQuery.fetchNextPage();
             fetching = false;
-          }
+        }
         };
     
         document.addEventListener("scroll", onScroll);
         return () => {
-          document.removeEventListener("scroll", onScroll);
+        document.removeEventListener("scroll", onScroll);
         };
-      }, []);
+    }, []);
 
     return (
         <SkeletonTheme  baseColor={"#2b2b2b"} highlightColor={"#474747"}>
@@ -60,6 +69,12 @@ function Main(props) {
                 </div>
                 <button className="profile__add-btn" type="button" aria-label="add new card" onClick={props.onAddPlace}></button>
             </section>
+
+            <section className="sorting">
+                <button className={sortType === 'dateAsc' ? 'sorting__btn' : 'sorting__btn sorting__btn_chosen'} type="button" aria-label="sorting button" onClick={() => { hanldleSortBtnClick('dateDesc')}}>Old to new</button>
+                <button className={sortType === 'dateAsc' ? 'sorting__btn sorting__btn_chosen' : 'sorting__btn'} type="button" aria-label="sorting button" onClick={() => { hanldleSortBtnClick('dateAsc')}}>New to old</button>
+            </section>      
+            
 
             {userSomeCardsQuery.data ? 
             
