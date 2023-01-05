@@ -63,8 +63,8 @@ const response = await fetch(`${BASE_URL}/cards`, {
   return userCards
 };
 
-export const fetchSomeUserCards = async (page = 1) => {
-  const response = await fetch(`${BASE_URL}/cards?limit=9&page=${page}`, {
+export const fetchSomeUserCards = async (page = 1, sortType) => {
+  const response = await fetch(`${BASE_URL}/cards?limit=9&page=${page}&sort=${sortType}`, {
       method: 'GET',
       credentials: 'include',
       headers: {

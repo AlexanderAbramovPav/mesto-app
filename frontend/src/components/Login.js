@@ -14,7 +14,7 @@ function Login (props) {
   return (
     <>
       <Header actionButton={"Register"} onSignChange={props.onSignChange}/>
-      <SignFormik title={"Welcome!"} button={"Log in"} registrationCheck={false} onSubmitSign={handleSubmit}/>
+      <SignFormik title={"Explore places just NOW!"} button={"Log in"} registrationCheck={false} onSubmitSign={handleSubmit}/>
     </>
   );
   

@@ -27,6 +27,10 @@
 @import url(./blocks/profile/__avatar-container/profile__avatar-container.css);
 @import url(./blocks/profile/__avatar-overlay/profile__avatar-overlay.css);
 
+@import url(./blocks/sorting/sorting.css);
+@import url(./blocks/sorting/__btn/sorting__btn.css);
+@import url(./blocks/sorting/__btn/_chosen/sorting__btn_chosen.css);
+
 @import url(./blocks/elements/elements.css);
 
 @import url(./blocks/element/element.css);
