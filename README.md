@@ -20,7 +20,7 @@ In the process of creating the project, the following approaches and technologie
 ## Link to the full project in production:
 https://alexander.abramov.nomoredomains.sbs 
 
-## Futher steps:
+## Further steps:
 * Add personal page with liked cards
 * Add comments to cards
 * Delete cards that 24 hours old
