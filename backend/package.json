@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "npx eslint .",
-    "build": "npx build --output public"
+    "lint": "npx eslint ."
   },
   "author": "Alexander Abramov",
   "license": "ISC",
