@@ -23,8 +23,8 @@ app.use(requestLogger);
 app.use(
   cors({
     origin: [
-      'https://alexander.abramov.nomoredomains.sbs',
-      'http://alexander.abramov.nomoredomains.sbs',
+      'https://mesto-frontend-seven.vercel.app',
+      'http://mesto-frontend-seven.vercel.app',
     ],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
