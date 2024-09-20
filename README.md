@@ -18,7 +18,7 @@ In the process of creating the project, the following approaches and technologie
 * Working with Figma (pixel-perfect layout)
 
 ## Link to the full project in production:
-https://alexander.abramov.nomoredomains.sbs 
+https://mesto-frontend-seven.vercel.app/
 
 ## Further steps:
 * Add personal page with liked cards
