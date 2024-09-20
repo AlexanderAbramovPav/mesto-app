@@ -104,7 +104,7 @@ export default class Api {
 }
 
 export const apiSettings = new Api({
-  baseUrl: "api.alexander.abramov.nomoredomains.sbs",
+  baseUrl: "mesto-app-phi.vercel.app",
   // baseUrl: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",

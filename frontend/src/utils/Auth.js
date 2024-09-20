@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.alexander.abramov.nomoredomains.sbs';
+export const BASE_URL = 'https://mesto-app-phi.vercel.app';
 
 export const getServerStatus = (res) => {
     if (res.ok) {
