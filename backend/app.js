@@ -14,7 +14,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const regWebUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z0-9()]{1,256}\b([-a-zA-Z0-9()@:%_+~#?&/=]*)/;
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_URI } = process.env;
 const app = express();
 
 // request logger
@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // connect to mongoDB
 mongoose.connect(
-  'mongodb://localhost:27017/mestodb',
+  MONGO_URI,
   {
     useNewUrlParser: true,
   },
@@ -85,7 +85,7 @@ app.post('/logout', (req, res) => {
     .send({ message: 'Success logout!' });
 });
 
-// rutes with auth
+// routes with auth
 app.use('/users', require('./routes/users'));
 
 app.use('/cards', require('./routes/cards'));
