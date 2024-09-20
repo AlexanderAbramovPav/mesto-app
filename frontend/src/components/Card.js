@@ -19,7 +19,7 @@ function Card(props) {
   };
 
   // We determine whether we are the owner of the current card
-  const isOwn = props.item.owner === userInfoQuery.data?._id;
+  const isOwn = props.item.owner === userInfoQuery?.data?._id;
 
   // Creating a variable, which we will then set in `className` for the delete button
   const cardDeleteButtonClassName = `element__trash-btn ${
@@ -27,7 +27,7 @@ function Card(props) {
   }`;
 
   // We determine whether the card has a like set by the current user
-  const isLiked = props.likes.some((i) => i === userInfoQuery?.data._id);
+  const isLiked = props.likes.some((i) => i === userInfoQuery?.data?._id);
 
   // Creating a variable, which we will then set in `className` for the like button
   const cardLikeButtonClassName = `element__like-btn ${
